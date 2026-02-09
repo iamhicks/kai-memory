@@ -254,6 +254,37 @@ If I violate any standing order:
 
 ---
 
+## ORDER 11: MID-SESSION CHECKPOINTS (Active Sessions >30 min)
+
+**Trigger:** Session active for >30 minutes with ongoing work  
+**Action:** Write checkpoint + commit every 30 minutes
+
+### Steps:
+
+1. **Timestamp checkpoint in memory/DD-MM-YYYY.md:**
+   ```
+   ## HH:MM — Checkpoint
+   **Progress:** What we've done since last checkpoint
+   **Files changed:** List with brief description
+   **Current focus:** What we're working on now
+   **Blockers:** Any issues encountered
+   ```
+
+2. **Commit immediately:**
+   ```bash
+   git add -A && git commit -m "checkpoint: brief description"
+   ```
+
+3. **Continue session** — Don't wait for session end
+
+### Rule:
+
+**Active conversation = Active risk.**  
+Every 30 minutes of work gets saved. No exceptions.  
+If the session dies, the next session resumes from last checkpoint.
+
+---
+
 ## FINAL RULE
 
 **Trust the file system, not the brain.**
