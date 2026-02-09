@@ -285,6 +285,29 @@ If the session dies, the next session resumes from last checkpoint.
 
 ---
 
+## ORDER 12: SYSTEM UPDATES & CONFIG CHANGES
+
+**Trigger:** Gateway updates, config changes, system modifications  
+**Action:** ASK FIRST — explicit "yes, do it now" required
+
+### Examples:
+
+- `openclaw update.run` or gateway updates
+- `gateway.config.patch` or `gateway.config.apply`
+- System file modifications (outside workspace)
+- New skill installations
+- Model configuration changes
+
+### Rule:
+
+**"Maybe later" or silence ≠ approval.**  
+**"Leave it for now" = STOP, do not proceed.**  
+**Wait for explicit "yes, do it now" or "update now" or similar clear directive.**
+
+If uncertain whether to proceed: **ASK.**
+
+---
+
 ## FINAL RULE
 
 **Trust the file system, not the brain.**
@@ -297,4 +320,4 @@ Write it down. Every time. No exceptions.
 
 *Standing Orders maintained by: Pete (The Captain)*  
 *Enforced on: Kai (The Assistant)*  
-*Last violation logged: [TO BE FILLED IN]*
+*Last violation logged: ORDER 12 — Update ran without explicit confirmation (2026-02-09)*
