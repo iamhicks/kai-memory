@@ -1,0 +1,12 @@
+# OpenClaw workspace - ignore sensitive data
+.DS_Store
+*.log
+.env
+config.json
+auth-profiles.json
+
+# Keep all markdown files, skills, scripts
+!*.md
+!*.sh
+!skills/
+!memory/
