@@ -77,4 +77,32 @@ Check daily:
 
 ---
 
+## Obsidian Vault Structure
+
+**Vault Name:** Kai  
+**Vault Root:** `/Users/peteroberts/Documents/Kai/Kai_Obsidian/`
+
+### Active Folders (visible in Obsidian sidebar):
+- **Business**
+- **Family**
+- **Kai** → *Can be deleted, not used*
+- **Kai Memory** ← **SYNC TARGET FOR MEMORY FILES**
+- **Personal**
+- **Trading**
+- **Trading-Journal-App**
+
+### Sync Rules:
+- Memory files (.md) → `Kai_Obsidian/Kai Memory/` (root level)
+- NOT `Kai_Obsidian/Kai/Kai Memory/` (wrong location, inside unused folder)
+- Daily session files → `Kai Memory/Daily Sessions/`
+- Skills → `Kai Memory/skills/`
+
+### Check Before Syncing:
+```bash
+ls ~/Documents/Kai/Kai_Obsidian/Kai\ Memory/  # Correct
+ls ~/Documents/Kai/Kai_Obsidian/Kai/Kai\ Memory/  # Wrong (old location)
+```
+
+---
+
 Add whatever helps you do your job. This is your cheat sheet.
