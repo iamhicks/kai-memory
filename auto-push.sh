@@ -9,31 +9,34 @@ TIME=$(date '+%H%M')
 
 echo "=== Auto-Push Started at $(date) ==="
 
-# 1. Create timestamped backup of Kai_Memory (workspace files)
-echo "[1/5] Backing up Kai_Memory..."
-BACKUP_DIR=~/Documents/Kai/Kai_Memory/$DATE/$TIME
+# 1. Backup workspace files
+BACKUP_DIR=~/Documents/Kai/Kai_Memory/Workspace/$DATE/$TIME
 mkdir -p "$BACKUP_DIR"
 cp ~/.openclaw/workspace/*.md "$BACKUP_DIR/" 2>/dev/null
 cp ~/.openclaw/workspace/*.sh "$BACKUP_DIR/" 2>/dev/null
 cp -r ~/.openclaw/workspace/memory "$BACKUP_DIR/" 2>/dev/null
 cp -r ~/.openclaw/workspace/skills "$BACKUP_DIR/" 2>/dev/null
-echo "  ✓ Kai_Memory backed up to $BACKUP_DIR"
+echo "  ✓ Workspace backed up to $BACKUP_DIR"
 
-# 2. Push OpenClaw workspace to GitHub
-echo "[2/5] Pushing Kai_Memory to GitHub..."
+# 2. Backup session transcripts (chat logs)
+SESSION_BACKUP=~/Documents/Kai/Kai_Memory/Sessions/$DATE/$TIME
+mkdir -p "$SESSION_BACKUP"
+cp ~/.openclaw/agents/main/sessions/*.jsonl "$SESSION_BACKUP/" 2>/dev/null
+echo "  ✓ Sessions backed up to $SESSION_BACKUP"
+
+# 3. Push workspace to GitHub
+echo "[3/6] Pushing workspace to GitHub..."
 cd ~/.openclaw/workspace
 if [ -n "$(git status --porcelain)" ]; then
     git add -A
     git commit -m "Auto-sync: $(date '+%d-%m-%Y %H:%M')"
     git push origin main
-    echo "  ✓ Kai_Memory pushed"
+    echo "  ✓ Workspace pushed"
 else
     echo "  ℹ No changes to push"
 fi
 
-# 3. Timestamped backup of Kai_Obsidian vault (BACKUP OUTSIDE REPO)
-echo "[3/5] Backing up Kai_Obsidian vault..."
-# Back up to Kai_Memory/Obsidian_Backups instead of inside the repo
+# 4. Backup Obsidian vault
 OBSIDIAN_BACKUP=~/Documents/Kai/Kai_Memory/Obsidian_Backups/$DATE/$TIME
 mkdir -p "$OBSIDIAN_BACKUP"
 cd ~/Documents/Kai/Kai_Obsidian/Kai
@@ -43,10 +46,10 @@ for item in * .*; do
         cp -r "$item" "$OBSIDIAN_BACKUP/" 2>/dev/null
     fi
 done
-echo "  ✓ Kai_Obsidian backed up to $OBSIDIAN_BACKUP"
+echo "  ✓ Obsidian backed up to $OBSIDIAN_BACKUP"
 
-# 4. Push Obsidian vault to GitHub
-echo "[4/5] Pushing Obsidian vault to GitHub..."
+# 5. Push Obsidian to GitHub
+echo "[5/6] Pushing Obsidian to GitHub..."
 cd ~/Documents/Kai/Kai_Obsidian/Kai
 if [ -n "$(git status --porcelain)" ]; then
     git add -A
@@ -57,8 +60,8 @@ else
     echo "  ℹ No changes to push"
 fi
 
-# 5. Timestamped backups for website, mind, flow (BACKUP OUTSIDE REPOS)
-echo "[5/5] Creating timestamped backups for products..."
+# 6. Backup product repos
+echo "[6/6] Backing up products..."
 for product in website mind flow; do
     if [ -d ~/Documents/Kai/Repos/$product ]; then
         PRODUCT_BACKUP=~/Documents/Kai/Kai_Memory/Product_Backups/$product/$DATE/$TIME
@@ -76,6 +79,7 @@ done
 echo "=== Auto-Push Complete at $(date) ==="
 echo ""
 echo "Backup locations:"
-echo "  - Kai_Memory: ~/Documents/Kai/Kai_Memory/$DATE/$TIME"
+echo "  - Workspace:  ~/Documents/Kai/Kai_Memory/Workspace/$DATE/$TIME"
+echo "  - Sessions:   ~/Documents/Kai/Kai_Memory/Sessions/$DATE/$TIME"
 echo "  - Obsidian:   ~/Documents/Kai/Kai_Memory/Obsidian_Backups/$DATE/$TIME"
 echo "  - Products:   ~/Documents/Kai/Kai_Memory/Product_Backups/{website,mind,flow}/$DATE/$TIME"
