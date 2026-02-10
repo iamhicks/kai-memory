@@ -2,29 +2,12 @@
 
 # Auto-push script for Kai's memory files
 # Runs every hour to backup to GitHub and create local timestamped backups
+# BACKUPS ARE STORED OUTSIDE GIT REPOS to avoid committing them
 
 DATE=$(date '+%d-%m-%y')
 TIME=$(date '+%H%M')
 
 echo "=== Auto-Push Started at $(date) ==="
-
-# Helper function: copy folder contents excluding date folders (dd-mm-yy pattern)
-copy_excluding_dates() {
-    local src="$1"
-    local dst="$2"
-    mkdir -p "$dst"
-    cd "$src" || return
-    for item in * .*; do
-        [[ "$item" == "." || "$item" == ".." ]] && continue
-        # Skip date-pattern folders (dd-mm-yy)
-        if [[ "$item" =~ ^[0-9]{2}-[0-9]{2}-[0-9]{2}$ ]]; then
-            continue
-        fi
-        if [ -e "$item" ]; then
-            cp -r "$item" "$dst/" 2>/dev/null
-        fi
-    done
-}
 
 # 1. Create timestamped backup of Kai_Memory (workspace files)
 echo "[1/5] Backing up Kai_Memory..."
@@ -48,13 +31,21 @@ else
     echo "  ℹ No changes to push"
 fi
 
-# 3. Timestamped backup of Kai_Obsidian vault (the actual vault at Kai_Obsidian/Kai/)
+# 3. Timestamped backup of Kai_Obsidian vault (BACKUP OUTSIDE REPO)
 echo "[3/5] Backing up Kai_Obsidian vault..."
-OBSIDIAN_BACKUP=~/Documents/Kai/Kai_Obsidian/Kai/$DATE/$TIME
-copy_excluding_dates ~/Documents/Kai/Kai_Obsidian/Kai "$OBSIDIAN_BACKUP"
+# Back up to Kai_Memory/Obsidian_Backups instead of inside the repo
+OBSIDIAN_BACKUP=~/Documents/Kai/Kai_Memory/Obsidian_Backups/$DATE/$TIME
+mkdir -p "$OBSIDIAN_BACKUP"
+cd ~/Documents/Kai/Kai_Obsidian/Kai
+for item in * .*; do
+    [[ "$item" == "." || "$item" == ".." ]] && continue
+    if [ -e "$item" ]; then
+        cp -r "$item" "$OBSIDIAN_BACKUP/" 2>/dev/null
+    fi
+done
 echo "  ✓ Kai_Obsidian backed up to $OBSIDIAN_BACKUP"
 
-# 4. Push Obsidian vault to GitHub (from Kai_Obsidian/Kai/)
+# 4. Push Obsidian vault to GitHub
 echo "[4/5] Pushing Obsidian vault to GitHub..."
 cd ~/Documents/Kai/Kai_Obsidian/Kai
 if [ -n "$(git status --porcelain)" ]; then
@@ -66,14 +57,25 @@ else
     echo "  ℹ No changes to push"
 fi
 
-# 5. Timestamped backups for website, mind, flow (inside each folder, exclude dates)
+# 5. Timestamped backups for website, mind, flow (BACKUP OUTSIDE REPOS)
 echo "[5/5] Creating timestamped backups for products..."
 for product in website mind flow; do
     if [ -d ~/Documents/Kai/Repos/$product ]; then
-        PRODUCT_BACKUP=~/Documents/Kai/Repos/$product/$DATE/$TIME
-        copy_excluding_dates ~/Documents/Kai/Repos/$product "$PRODUCT_BACKUP"
+        PRODUCT_BACKUP=~/Documents/Kai/Kai_Memory/Product_Backups/$product/$DATE/$TIME
+        mkdir -p "$PRODUCT_BACKUP"
+        cd ~/Documents/Kai/Repos/$product
+        for item in *; do
+            if [ -e "$item" ]; then
+                cp -r "$item" "$PRODUCT_BACKUP/" 2>/dev/null
+            fi
+        done
         echo "  ✓ $product backed up"
     fi
 done
 
 echo "=== Auto-Push Complete at $(date) ==="
+echo ""
+echo "Backup locations:"
+echo "  - Kai_Memory: ~/Documents/Kai/Kai_Memory/$DATE/$TIME"
+echo "  - Obsidian:   ~/Documents/Kai/Kai_Memory/Obsidian_Backups/$DATE/$TIME"
+echo "  - Products:   ~/Documents/Kai/Kai_Memory/Product_Backups/{website,mind,flow}/$DATE/$TIME"
