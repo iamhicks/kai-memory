@@ -62,31 +62,56 @@ else
     echo "  ℹ No changes to push"
 fi
 
-# 6. Backup product repos (backups inside each subfolder)
+# 6. Backup product repos (website at root, mind/flow subfolders)
 echo "[6/6] Backing up products..."
-for product in website mind flow; do
-    if [ -d ~/Documents/Kai/Repos/$product ]; then
-        cd ~/Documents/Kai/Repos/$product
-        for subfolder in *; do
-            # Skip files, Backups folders, and git
-            [[ -f "$subfolder" ]] && continue
-            [[ "$subfolder" == ".git" ]] && continue
-            [[ "$subfolder" == "Backups" ]] && continue
-            [[ "$subfolder" == [0-9][0-9]-[0-9][0-9]-[0-9][0-9] ]] && continue
-            
-            if [ -d "$subfolder" ]; then
-                PRODUCT_BACKUP=~/Documents/Kai/Repos/$product/$subfolder/Backups/$DATE/$TIME
-                mkdir -p "$PRODUCT_BACKUP"
-                cd ~/Documents/Kai/Repos/$product/$subfolder
-                for item in *; do
-                    [[ "$item" == "Backups" ]] && continue
-                    if [ -e "$item" ]; then
-                        cp -r "$item" "$PRODUCT_BACKUP/" 2>/dev/null
-                    fi
-                done
-                echo "  ✓ $product/$subfolder backed up"
+
+# Website - backup at root level
+echo "  Backing up website..."
+WEBSITE_BACKUP=~/Documents/Kai/Repos/website/Backups/$DATE/$TIME
+mkdir -p "$WEBSITE_BACKUP"
+cd ~/Documents/Kai/Repos/website
+for item in *; do
+    [[ "$item" == ".git" ]] && continue
+    [[ "$item" == "Backups" ]] && continue
+    [[ "$item" == *.bak ]] && continue
+    [[ "$item" == *-backup-* ]] && continue
+    if [ -e "$item" ]; then
+        cp -r "$item" "$WEBSITE_BACKUP/" 2>/dev/null
+    fi
+done
+echo "    ✓ website backed up"
+
+# Mind - backup app and demo subfolders
+echo "  Backing up mind..."
+for subfolder in app demo; do
+    if [ -d ~/Documents/Kai/Repos/mind/$subfolder ]; then
+        MIND_BACKUP=~/Documents/Kai/Repos/mind/$subfolder/Backups/$DATE/$TIME
+        mkdir -p "$MIND_BACKUP"
+        cd ~/Documents/Kai/Repos/mind/$subfolder
+        for item in *; do
+            [[ "$item" == "Backups" ]] && continue
+            if [ -e "$item" ]; then
+                cp -r "$item" "$MIND_BACKUP/" 2>/dev/null
             fi
         done
+        echo "    ✓ mind/$subfolder backed up"
+    fi
+done
+
+# Flow - backup app and demo subfolders
+echo "  Backing up flow..."
+for subfolder in app demo; do
+    if [ -d ~/Documents/Kai/Repos/flow/$subfolder ]; then
+        FLOW_BACKUP=~/Documents/Kai/Repos/flow/$subfolder/Backups/$DATE/$TIME
+        mkdir -p "$FLOW_BACKUP"
+        cd ~/Documents/Kai/Repos/flow/$subfolder
+        for item in *; do
+            [[ "$item" == "Backups" ]] && continue
+            if [ -e "$item" ]; then
+                cp -r "$item" "$FLOW_BACKUP/" 2>/dev/null
+            fi
+        done
+        echo "    ✓ flow/$subfolder backed up"
     fi
 done
 
