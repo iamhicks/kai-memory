@@ -12,7 +12,8 @@ echo "=== Auto-Push Started at $(date) ==="
 echo "[1/5] Backing up Kai_Memory..."
 BACKUP_DIR=~/Documents/Kai/Kai_Memory/$DATE/$TIME
 mkdir -p "$BACKUP_DIR"
-cp -r ~/.openclaw/workspace/*.md "$BACKUP_DIR/" 2>/dev/null
+cp ~/.openclaw/workspace/*.md "$BACKUP_DIR/" 2>/dev/null
+cp ~/.openclaw/workspace/*.sh "$BACKUP_DIR/" 2>/dev/null
 cp -r ~/.openclaw/workspace/memory "$BACKUP_DIR/" 2>/dev/null
 cp -r ~/.openclaw/workspace/skills "$BACKUP_DIR/" 2>/dev/null
 echo "  ✓ Kai_Memory backed up to $BACKUP_DIR"
@@ -29,13 +30,21 @@ else
     echo "  ℹ No changes to push"
 fi
 
-# 3. Timestamped backup of Kai_Obsidian
+# 3. Timestamped backup of Kai_Obsidian (exclude date folders)
 echo "[3/5] Backing up Kai_Obsidian..."
 OBSIDIAN_BACKUP=~/Documents/Kai/Kai_Obsidian/$DATE/$TIME
 mkdir -p "$OBSIDIAN_BACKUP"
-cp -r ~/Documents/Kai/Kai_Obsidian/*.md "$OBSIDIAN_BACKUP/" 2>/dev/null
-cp -r ~/Documents/Kai/Kai_Obsidian/* "$OBSIDIAN_BACKUP/" 2>/dev/null
-find "$OBSIDIAN_BACKUP" -name "$DATE" -type d -exec rm -rf {} + 2>/dev/null
+# Copy everything except existing date folders (dd-mm-yy pattern)
+cd ~/Documents/Kai/Kai_Obsidian
+for item in *; do
+    # Skip if it matches date pattern (dd-mm-yy)
+    if [[ "$item" =~ ^[0-9]{2}-[0-9]{2}-[0-9]{2}$ ]]; then
+        continue
+    fi
+    if [ -e "$item" ]; then
+        cp -r "$item" "$OBSIDIAN_BACKUP/" 2>/dev/null
+    fi
+done
 echo "  ✓ Kai_Obsidian backed up"
 
 # 4. Push Obsidian vault to GitHub
@@ -50,15 +59,23 @@ else
     echo "  ℹ No changes to push"
 fi
 
-# 5. Timestamped backups for website, mind, flow (inside each folder)
+# 5. Timestamped backups for website, mind, flow (inside each folder, exclude date folders)
 echo "[5/5] Creating timestamped backups for products..."
 for product in website mind flow; do
     if [ -d ~/Documents/Kai/Repos/$product ]; then
         PRODUCT_BACKUP=~/Documents/Kai/Repos/$product/$DATE/$TIME
         mkdir -p "$PRODUCT_BACKUP"
-        # Copy everything except existing backup folders
-        find ~/Documents/Kai/Repos/$product -maxdepth 1 -not -path "*/\.*" -not -path "*/$DATE" -not -path ~/Documents/Kai/Repos/$product -exec cp -r {} "$PRODUCT_BACKUP/" \; 2>/dev/null
-        echo "  ✓ $product backed up to $PRODUCT_BACKUP"
+        cd ~/Documents/Kai/Repos/$product
+        for item in *; do
+            # Skip if it matches date pattern (dd-mm-yy)
+            if [[ "$item" =~ ^[0-9]{2}-[0-9]{2}-[0-9]{2}$ ]]; then
+                continue
+            fi
+            if [ -e "$item" ]; then
+                cp -r "$item" "$PRODUCT_BACKUP/" 2>/dev/null
+            fi
+        done
+        echo "  ✓ $product backed up"
     fi
 done
 
