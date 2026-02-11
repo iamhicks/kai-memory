@@ -80,27 +80,30 @@ Check daily:
 ## Obsidian Vault Structure
 
 **Vault Name:** Kai  
-**Vault Root:** `/Users/peteroberts/Documents/Kai/Kai_Obsidian/`
+**Vault Root:** `/Users/peteroberts/Documents/Kai/Kai_Obsidian/`  
+**Content Root:** `/Users/peteroberts/Documents/Kai/Kai_Obsidian/Kai/` ← **FILES GO HERE**
 
-### Active Folders (visible in Obsidian sidebar):
-- **Business**
-- **Family**
-- **Kai** → *Can be deleted, not used*
-- **Kai Memory** ← **SYNC TARGET FOR MEMORY FILES**
-- **Personal**
-- **Trading**
-- **Trading-Journal-App**
+### Active Folders (inside `Kai_Obsidian/Kai/`):
+- **Kai Memory/** ← **MEMORY FILES SYNC TARGET**
+- **Business/**
+- **Family/**
+- **Personal/**
+- **Trading/**
+- **MIND Technical Specification.md** ← **DOCUMENTATION HERE**
 
-### Sync Rules:
-- Memory files (.md) → `Kai_Obsidian/Kai Memory/` (root level)
-- NOT `Kai_Obsidian/Kai/Kai Memory/` (wrong location, inside unused folder)
-- Daily session files → `Kai Memory/Daily Sessions/`
-- Skills → `Kai Memory/skills/`
+### CORRECT PATHS:
+- Memory files → `Kai_Obsidian/Kai/Kai Memory/`
+- Documentation → `Kai_Obsidian/Kai/`
+- Daily sessions → `Kai_Obsidian/Kai/Kai Memory/Daily Sessions/`
 
-### Check Before Syncing:
+### WRONG PATHS (don't use):
+- ~~`Kai_Obsidian/Kai Memory/`~~ (root level - wrong)
+- ~~`Kai_Obsidian/MIND Technical Specification.md`~~ (root level - wrong)
+
+### Check Before Saving:
 ```bash
-ls ~/Documents/Kai/Kai_Obsidian/Kai\ Memory/  # Correct
-ls ~/Documents/Kai/Kai_Obsidian/Kai/Kai\ Memory/  # Wrong (old location)
+ls ~/Documents/Kai/Kai_Obsidian/Kai/           # Content folder
+ls ~/Documents/Kai/Kai_Obsidian/Kai/Kai\ Memory/  # Memory folder
 ```
 
 ---

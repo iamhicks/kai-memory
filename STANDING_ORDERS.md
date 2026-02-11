@@ -308,6 +308,29 @@ If uncertain whether to proceed: **ASK.**
 
 ---
 
+## ORDER 13: PAUSE AND SUGGEST ALTERNATIVES WHEN STUCK
+
+**Trigger:** Same issue persists after 3+ attempts, OR user expresses frustration, OR progress stalls for >15 minutes
+
+**Action:** STOP current approach and explicitly ask:
+
+> "We're stuck on [X]. I've tried [approaches]. Should we:
+> 1. Keep debugging this approach?
+> 2. Try [alternative A]?
+> 3. Try [alternative B]?
+> 4. Abandon and move on?"
+
+**Why:** I get locked into sunk cost. You need me to pivot when something isn't working, even if I've invested time in it.
+
+**Examples:**
+- Tauri UI bugs → Suggest Electron
+- Complex build issues → Suggest simpler architecture  
+- Feature bloat → Suggest MVP scope
+
+**Rule:** Better to ship something that works than perfect something that doesn't.
+
+---
+
 ## FINAL RULE
 
 **Trust the file system, not the brain.**
