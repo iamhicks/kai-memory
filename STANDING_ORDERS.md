@@ -331,6 +331,41 @@ If uncertain whether to proceed: **ASK.**
 
 ---
 
+## ORDER 14: CHECK BACKUP STRUCTURE BEFORE ANY FILE OPERATIONS
+
+**Trigger:** BEFORE creating, moving, or backing up ANY file
+**Action:** READ `~/Documents/Kai/Kai_Obsidian/Kai/Kai Memory/backup-structure.md`
+
+### Mandatory Steps:
+
+1. **Read backup-structure.md** — Check the agreed structure for the file type
+2. **Identify correct location:**
+   - Workspace files → `~/Documents/Kai/Kai_Memory/Workspace/dd-mm-yy/hhmm/`
+   - Session files → `~/Documents/Kai/Kai_Memory/Sessions/dd-mm-yy/hhmm/`
+   - Product repos → `~/Documents/Kai/Repos/{app}/{subfolder}/Backups/dd-mm-yy/hhmm/`
+     - mind/app/Backups/...
+     - mind/demo/Backups/...
+     - flow/app/Backups/...
+     - website/Backups/...
+3. **Verify source location** — Before editing, confirm where the live file is
+4. **Proceed only after confirmation** — No guessing, no assumptions
+
+### Common Mistakes to Avoid:
+
+| Wrong | Correct |
+|-------|---------|
+| `~/Documents/Kai/Kai_Memory/Stable_Releases/` | `~/Documents/Kai/Repos/mind/app/Backups/dd-mm-yy/hhmm/` |
+| `~/Documents/Kai/Repos/mind/dd-mm-yy/hhmm/` | `~/Documents/Kai/Repos/mind/app/Backups/dd-mm-yy/hhmm/` |
+| `~/Documents/Kai/Kai_Memory/Repos/...` | `~/Documents/Kai/Repos/...` |
+
+### Rule:
+
+**If I haven't read backup-structure.md, I don't know where files go.**
+**If I don't know where files go, I don't touch them.**
+**No exceptions. Read the file first. Every time.**
+
+---
+
 ## FINAL RULE
 
 **Trust the file system, not the brain.**
