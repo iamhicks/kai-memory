@@ -47,6 +47,21 @@
 
 ## Current Project Context (Auto-Loaded)
 
+### MIND App (11-02-2026)
+**Status:** Sorting features fully functional
+
+**Recent Fixes:**
+- Pinned (Favorites) section sort dropdown now visible and working
+- Folder date sorting works with proper timestamps
+- Added "Custom (Manual Order)" option for manual drag-and-drop reordering
+- Dropdown text no longer wraps (wider, nowrap styling)
+- Right-click context menu includes "Inspect Element" for DevTools
+
+**Data Structure:**
+- Folders now have `createdAt` and `updatedAt` timestamps
+- Sort preference saved in `settings.folderSort` and `settings.favoritesSort`
+- Custom sort preserves manual order; other sorts persist the new order
+
 ### i_am_Hicks Product Suite
 **Status:** Live with monochrome redesign
 **URL:** iamhicks.com
