@@ -81,32 +81,44 @@ for item in *; do
 done
 echo "    ✓ website backed up"
 
-# Mind - backup app and demo subfolders + root source files
+# Mind - backup app and demo subfolders (including root source files in app/Backups)
 echo "  Backing up mind..."
 
-# Backup root source files (main.js, preload.js, package.json)
-MIND_ROOT_BACKUP=~/Documents/Kai/Repos/mind/Backups/$DATE/$TIME
-mkdir -p "$MIND_ROOT_BACKUP"
-cp ~/Documents/Kai/Repos/mind/main.js "$MIND_ROOT_BACKUP/" 2>/dev/null
-cp ~/Documents/Kai/Repos/mind/preload.js "$MIND_ROOT_BACKUP/" 2>/dev/null
-cp ~/Documents/Kai/Repos/mind/package.json "$MIND_ROOT_BACKUP/" 2>/dev/null
-echo "    ✓ mind root files backed up"
+# Backup app subfolder + include root source files
+if [ -d ~/Documents/Kai/Repos/mind/app ]; then
+    MIND_BACKUP=~/Documents/Kai/Repos/mind/app/Backups/$DATE/$TIME
+    mkdir -p "$MIND_BACKUP"
+    
+    # Copy app folder contents
+    cd ~/Documents/Kai/Repos/mind/app
+    for item in *; do
+        [[ "$item" == "Backups" ]] && continue
+        if [ -e "$item" ]; then
+            cp -r "$item" "$MIND_BACKUP/" 2>/dev/null
+        fi
+    done
+    
+    # Also copy root source files to same backup folder
+    cp ~/Documents/Kai/Repos/mind/main.js "$MIND_BACKUP/" 2>/dev/null
+    cp ~/Documents/Kai/Repos/mind/preload.js "$MIND_BACKUP/" 2>/dev/null
+    cp ~/Documents/Kai/Repos/mind/package.json "$MIND_BACKUP/" 2>/dev/null
+    
+    echo "    ✓ mind/app backed up (with source files)"
+fi
 
-# Backup app and demo subfolders
-for subfolder in app demo; do
-    if [ -d ~/Documents/Kai/Repos/mind/$subfolder ]; then
-        MIND_BACKUP=~/Documents/Kai/Repos/mind/$subfolder/Backups/$DATE/$TIME
-        mkdir -p "$MIND_BACKUP"
-        cd ~/Documents/Kai/Repos/mind/$subfolder
-        for item in *; do
-            [[ "$item" == "Backups" ]] && continue
-            if [ -e "$item" ]; then
-                cp -r "$item" "$MIND_BACKUP/" 2>/dev/null
-            fi
-        done
-        echo "    ✓ mind/$subfolder backed up"
-    fi
-done
+# Backup demo subfolder
+if [ -d ~/Documents/Kai/Repos/mind/demo ]; then
+    MIND_DEMO_BACKUP=~/Documents/Kai/Repos/mind/demo/Backups/$DATE/$TIME
+    mkdir -p "$MIND_DEMO_BACKUP"
+    cd ~/Documents/Kai/Repos/mind/demo
+    for item in *; do
+        [[ "$item" == "Backups" ]] && continue
+        if [ -e "$item" ]; then
+            cp -r "$item" "$MIND_DEMO_BACKUP/" 2>/dev/null
+        fi
+    done
+    echo "    ✓ mind/demo backed up"
+fi
 
 # Flow - backup app and demo subfolders
 echo "  Backing up flow..."
