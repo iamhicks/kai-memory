@@ -115,4 +115,9 @@ for subfolder in app demo; do
     fi
 done
 
+# 7. Sync workspace memory files to Obsidian
+echo "[7/7] Syncing memory files to Obsidian..."
+bash "$HOME/.openclaw/workspace/sync-to-obsidian.sh" > /dev/null 2>&1
+echo "  ✓ Memory synced to Obsidian"
+
 echo "=== Auto-Push Complete at $(date) ==="
