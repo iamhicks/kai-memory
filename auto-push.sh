@@ -63,7 +63,7 @@ else
 fi
 
 # 6. Backup product repos (website at root, mind/flow subfolders)
-echo "[6/6] Backing up products..."
+echo "[6/7] Backing up products..."
 
 # Website - backup at root level
 echo "  Backing up website..."
@@ -81,8 +81,18 @@ for item in *; do
 done
 echo "    ✓ website backed up"
 
-# Mind - backup app and demo subfolders
+# Mind - backup app and demo subfolders + root source files
 echo "  Backing up mind..."
+
+# Backup root source files (main.js, preload.js, package.json)
+MIND_ROOT_BACKUP=~/Documents/Kai/Repos/mind/Backups/$DATE/$TIME
+mkdir -p "$MIND_ROOT_BACKUP"
+cp ~/Documents/Kai/Repos/mind/main.js "$MIND_ROOT_BACKUP/" 2>/dev/null
+cp ~/Documents/Kai/Repos/mind/preload.js "$MIND_ROOT_BACKUP/" 2>/dev/null
+cp ~/Documents/Kai/Repos/mind/package.json "$MIND_ROOT_BACKUP/" 2>/dev/null
+echo "    ✓ mind root files backed up"
+
+# Backup app and demo subfolders
 for subfolder in app demo; do
     if [ -d ~/Documents/Kai/Repos/mind/$subfolder ]; then
         MIND_BACKUP=~/Documents/Kai/Repos/mind/$subfolder/Backups/$DATE/$TIME
