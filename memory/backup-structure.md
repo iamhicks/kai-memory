@@ -10,29 +10,72 @@
 **Run these from any terminal:**
 
 ```bash
-# QUICK MODE (cron default) — Workspace + Sessions + GitHub push
-# Backs up: ~/.openclaw/workspace/* → Kai_Memory/Workspace/
-#           Sessions (.jsonl) → Kai_Memory/Sessions/
-#           Pushes to: github.com/iamhicks/kai-memory
-cd ~/.openclaw/workspace && bash auto-push.sh
-
-# FULL MODE — Everything + Obsidian + Products
-# Backs up: Everything in quick mode PLUS:
-#           Obsidian vault → Kai_Obsidian/Backups/
-#           MIND/FLOW/EDGE → Repos/*/Backups/
-#           Pushes to: kai-memory + kai-obsidian repos
+# ═══════════════════════════════════════════════════════════
+# FULL SYSTEM (Local + GitHub) — Everything with GitHub push
+# ═══════════════════════════════════════════════════════════
+# LOCAL BACKUP:
+#   • Workspace       → Kai_Memory/Workspace/
+#   • Sessions        → Kai_Memory/Sessions/
+#   • MIND app/demo   → Repos/mind/*/Backups/daily/
+#   • FLOW app/demo   → Repos/flow/*/Backups/daily/
+#   • Website         → Repos/website/Backups/daily/
+#   • Obsidian        → Kai_Obsidian/Kai/Backups/
+#
+# GITHUB PUSH:
+#   • kai-memory repo (workspace)
+#   • kai-obsidian repo (vault)
 cd ~/.openclaw/workspace && bash auto-push.sh full
 
-# OBSIDIAN SYNC — Memory files only
-# Backs up: workspace/memory/* → Kai_Obsidian/Kai Memory/
-#           (no GitHub push, no other files)
-cd ~/.openclaw/workspace && bash sync-to-obsidian.sh
 
-# LOCAL ONLY — Kai_Memory local backup (no GitHub)
-# Backs up: Workspace → Kai_Memory/Workspace/
-#           Sessions → Kai_Memory/Sessions/
-#           (does NOT push to GitHub)
+# ═══════════════════════════════════════════════════════════
+# KAI MEMORY (Quick GitHub) — Workspace + Sessions only
+# ═══════════════════════════════════════════════════════════
+# LOCAL BACKUP:
+#   • Workspace     → Kai_Memory/Workspace/
+#   • Sessions      → Kai_Memory/Sessions/
+#
+# GITHUB PUSH:
+#   • kai-memory repo
+#
+# Note: Use 'full' mode for Products (MIND/FLOW/Website)
+cd ~/.openclaw/workspace && bash auto-push.sh
+
+
+# ═══════════════════════════════════════════════════════════
+# FULL BACKUP (Local only) — Everything without GitHub push
+# ═══════════════════════════════════════════════════════════
+# LOCAL BACKUP:
+#   • Workspace       → Kai_Memory/Workspace/
+#   • Sessions        → Kai_Memory/Sessions/
+#   • MIND app/demo   → Repos/mind/*/Backups/daily/
+#   • FLOW app/demo   → Repos/flow/*/Backups/daily/
+#   • Website         → Repos/website/Backups/daily/
+#   • Obsidian        → Kai_Obsidian/Kai/Backups/
+#
+# Note: No GitHub push (local only)
+cd ~/.openclaw/workspace && bash backup-all.sh full
+
+
+# ═══════════════════════════════════════════════════════════
+# LOCAL BACKUP (Quick) — Workspace + Sessions + MIND, no GitHub
+# ═══════════════════════════════════════════════════════════
+# LOCAL BACKUP:
+#   • Workspace  → Kai_Memory/Workspace/
+#   • Sessions   → Kai_Memory/Sessions/
+#   • MIND app   → Repos/mind/app/Backups/daily/
+#
+# Note: No GitHub push (local only)
 cd ~/.openclaw/workspace && bash backup-all.sh
+
+
+# ═══════════════════════════════════════════════════════════
+# OBSIDIAN ONLY — Memory files to Obsidian, no GitHub
+# ═══════════════════════════════════════════════════════════
+# LOCAL SYNC:
+#   • workspace/memory/* → Kai_Obsidian/Kai Memory/
+#
+# Note: No other files, no GitHub push
+cd ~/.openclaw/workspace && bash sync-to-obsidian.sh
 ```
 
 **Check last backup:**
@@ -93,7 +136,7 @@ Three scripts manage the backup ecosystem:
 ├── USER.md                   # Copied from workspace
 ├── AGENTS.md                 # Copied from workspace
 ├── MEMORY.md                 # Curated long-term memory
-└── Backups/                  # Hourly Obsidian backups
+└── Backups/                  # Hourly vault snapshots (INSIDE vault, appears in Obsidian left sidebar)
     └── dd-mm-yy/
         └── hhmm/
 ```
@@ -105,20 +148,27 @@ Three scripts manage the backup ecosystem:
 ├── mind/
 │   ├── app/                  # Current Electron app code
 │   │   └── Backups/
-│   │       └── dd-mm-yy/
-│   │           └── hhmm/
+│   │       ├── daily/        # Auto timestamped backups
+│   │       │   └── dd-mm-yy/
+│   │       │       └── hhmm/
+│   │       ├── stable/       # Named milestones (manual)
+│   │       │   └── v1.0-ai-chat/
+│   │       └── dev/          # Debug/dev checkpoints (temporary)
+│   │           └── DEBUG1/
 │   └── demo/                 # Demo version
 │       └── Backups/
-│           └── dd-mm-yy/
-│               └── hhmm/
+│           └── daily/
 ├── flow/
 │   ├── app/
+│   │   └── Backups/
+│   │       └── daily/
 │   └── demo/
+│       └── Backups/
+│           └── daily/
 ├── edge/                     # (when created)
 └── website/
     └── Backups/
-        └── dd-mm-yy/
-            └── hhmm/
+        └── daily/
 ```
 
 ---
@@ -128,7 +178,7 @@ Three scripts manage the backup ecosystem:
 | Repo | URL | Contents | Push Frequency |
 |------|-----|----------|----------------|
 | `kai-memory` | github.com/iamhicks/kai-memory | `~/.openclaw/workspace/` — SOUL.md, USER.md, memory/, skills/, *.sh | Hourly (auto-push.sh) |
-| `kai-obsidian` | github.com/iamhicks/kai-obsidian | `~/Documents/Kai/Kai_Obsidian/Kai/` — Full vault | Hourly (auto-push.sh) |
+| `kai-obsidian` | github.com/iamhicks/kai-obsidian | `~/Documents/Kai/Kai_Obsidian/Kai/` — Full vault | Hourly (auto-push.sh full) |
 | `mind` | github.com/iamhicks/mind | `~/Documents/Kai/Repos/mind/` — Electron app + demo | Manual (during dev) |
 | `flow` | github.com/iamhicks/flow | `~/Documents/Kai/Repos/flow/` — Task app | Manual (during dev) |
 | `website` | github.com/iamhicks/website | `~/Documents/Kai/Repos/website/` — Marketing site | Manual (during dev) |
@@ -140,35 +190,28 @@ Three scripts manage the backup ecosystem:
 ### 1. `auto-push.sh` (Primary Automation)
 
 **Location:** `~/.openclaw/workspace/auto-push.sh`  
-**Schedule:** Every hour (cron)  
+**Schedule:** Every hour (cron) — runs in QUICK mode  
 **What it does:**
 
 ```
+QUICK MODE (default, hourly cron):
 Step 1: Backup workspace → Kai_Memory/Workspace/dd-mm-yy/hhmm/
         - Copies all .md, .sh, memory/, skills/
 
 Step 2: Backup sessions → Kai_Memory/Sessions/dd-mm-yy/hhmm/
         - Copies .jsonl session files
 
-Step 3: Backup Obsidian → Kai_Obsidian/Kai/Backups/dd-mm-yy/hhmm/
-        - Full vault snapshot (excludes Backups/ folder)
-
-Step 4: Push workspace → GitHub (kai-memory repo)
+Step 3: Push workspace → GitHub (kai-memory repo)
         - Commits with timestamp: "Auto-sync: DD-MM-YYYY HH:MM"
 
-Step 5: Push Obsidian → GitHub (kai-obsidian repo)
-        - Same commit format
-
-Step 6: Backup product repos
-        - website/Backups/
-        - mind/app/Backups/
-        - mind/demo/Backups/
-        - flow/app/Backups/
-        - flow/demo/Backups/
-
-Step 7: Sync workspace memory → Obsidian
-        - Runs sync-to-obsidian.sh
-        - Copies workspace/memory/* → Kai_Obsidian/Kai/Kai Memory/
+FULL MODE (manual only):
+Step 4: Backup MIND app → Repos/mind/app/Backups/daily/dd-mm-yy/hhmm/
+Step 5: Backup MIND demo → Repos/mind/demo/Backups/daily/dd-mm-yy/hhmm/
+Step 6: Backup FLOW → Repos/flow/*/Backups/daily/dd-mm-yy/hhmm/
+Step 7: Backup website → Repos/website/Backups/daily/dd-mm-yy/hhmm/
+Step 8: Backup Obsidian vault → Kai_Obsidian/Kai/Backups/dd-mm-yy/hhmm/
+Step 9: Push Obsidian → GitHub (kai-obsidian repo)
+Step 10: Sync memory files to Obsidian
 ```
 
 ### 2. `backup-all.sh` (Manual/On-Demand)
@@ -179,9 +222,14 @@ Step 7: Sync workspace memory → Obsidian
 
 ```
 Step 1: Backup workspace → Kai_Memory/Workspace/dd-mm-yy/hhmm/
-Step 2: Prepare sessions directory → Kai_Memory/Sessions/dd-mm-yy/hhmm/
-Step 3: Backup MIND app → Repos/mind/dd-mm-yy/hhmm/
-Step 4: Backup MIND demo → Repos/mind-demo/dd-mm-yy/hhmm/
+Step 2: Backup sessions → Kai_Memory/Sessions/dd-mm-yy/hhmm/
+Step 3: Backup MIND app → Repos/mind/app/Backups/daily/dd-mm-yy/hhmm/
+
+FULL MODE:
+Step 4: Backup MIND demo → Repos/mind/demo/Backups/daily/dd-mm-yy/hhmm/
+Step 5: Backup FLOW → Repos/flow/*/Backups/daily/dd-mm-yy/hhmm/
+Step 6: Backup website → Repos/website/Backups/daily/dd-mm-yy/hhmm/
+Step 7: Backup Obsidian → Kai_Obsidian/Kai/Backups/dd-mm-yy/hhmm/
 ```
 
 **Note:** This does NOT push to GitHub. Use auto-push.sh or manual git push for that.
@@ -223,14 +271,14 @@ Includes subdirectories:
 
 ## What Gets Backed Up When
 
-| Data Source | Local Backup | GitHub | Obsidian | Frequency |
-|-------------|--------------|--------|----------|-----------|
-| Workspace .md files | ✓ Kai_Memory/Workspace/ | ✓ kai-memory | ✓ (via memory sync) | Hourly |
-| Session transcripts | ✓ Kai_Memory/Sessions/ | ✓ kai-memory | ✗ | Hourly |
-| Obsidian vault | ✓ Kai_Obsidian/Backups/ | ✓ kai-obsidian | N/A | Hourly |
-| MIND app | ✓ Repos/mind/Backups/ | Manual | ✗ | Manual/Auto |
-| FLOW app | ✓ Repos/flow/Backups/ | Manual | ✗ | Manual/Auto |
-| Website | ✓ Repos/website/Backups/ | Manual | ✗ | Manual/Auto |
+| Data Source | Local Backup | GitHub | Frequency |
+|-------------|--------------|--------|-----------|
+| Workspace .md files | ✓ Kai_Memory/Workspace/ | ✓ kai-memory | Hourly (quick) |
+| Session transcripts | ✓ Kai_Memory/Sessions/ | ✓ kai-memory | Hourly (quick) |
+| MIND app/demo | ✓ Repos/mind/*/Backups/daily/ | Manual | Full mode only |
+| FLOW app/demo | ✓ Repos/flow/*/Backups/daily/ | Manual | Full mode only |
+| Website | ✓ Repos/website/Backups/daily/ | Manual | Full mode only |
+| Obsidian vault | ✓ Kai_Obsidian/Backups/ | ✓ kai-obsidian | Full mode only |
 
 ---
 
@@ -262,20 +310,30 @@ git pull origin main
 # List all workspace backups
 ls -la ~/Documents/Kai/Kai_Memory/Workspace/
 
+# List all MIND backups
+ls -la ~/Documents/Kai/Repos/mind/app/Backups/daily/
+
 # List all Obsidian backups
 ls -la ~/Documents/Kai/Kai_Obsidian/Kai/Backups/
 ```
 
 ---
 
-## Checklist: What Should Exist After Hourly Run
+## Checklist: What Should Exist After Hourly Run (Quick Mode)
 
 - [ ] `~/Documents/Kai/Kai_Memory/Workspace/dd-mm-yy/hhmm/` — with memory/, skills/, *.sh
 - [ ] `~/Documents/Kai/Kai_Memory/Sessions/dd-mm-yy/hhmm/` — with .jsonl files
-- [ ] `~/Documents/Kai/Kai_Obsidian/Kai/Backups/dd-mm-yy/hhmm/` — full vault snapshot
-- [ ] `~/Documents/Kai/Kai_Obsidian/Kai/Kai Memory/` — synced from workspace/memory/
 - [ ] GitHub kai-memory repo — latest commit within 1 hour
-- [ ] GitHub kai-obsidian repo — latest commit within 1 hour
+
+## Checklist: What Should Exist After Full Mode
+
+- [ ] Everything from quick mode PLUS:
+- [ ] `~/Documents/Kai/Repos/mind/app/Backups/daily/dd-mm-yy/hhmm/` — MIND app backup
+- [ ] `~/Documents/Kai/Repos/mind/demo/Backups/daily/dd-mm-yy/hhmm/` — MIND demo backup
+- [ ] `~/Documents/Kai/Repos/flow/*/Backups/daily/dd-mm-yy/hhmm/` — FLOW backups
+- [ ] `~/Documents/Kai/Repos/website/Backups/daily/dd-mm-yy/hhmm/` — website backup
+- [ ] `~/Documents/Kai/Kai_Obsidian/Kai/Backups/dd-mm-yy/hhmm/` — Obsidian vault snapshot
+- [ ] GitHub kai-obsidian repo — latest commit
 
 ---
 
