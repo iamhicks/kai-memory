@@ -420,6 +420,47 @@ Pete needs to know exactly what I can and cannot do. No sugarcoating, no confide
 
 ---
 
+## ORDER 16: PROTOCOL CHECK MANDATORY FOR ALL BACKUPS/SYNC OPERATIONS
+
+**Trigger:** User says "backup", "sync", "push", or any file operation involving multiple locations
+**Action:** STOP. Read protocol. Confirm. Then execute.
+
+### Mandatory Steps (NO EXCEPTIONS):
+
+1. **STOP** — Do not run any command yet
+2. **READ** `memory/backup-structure.md` or `Kai_Obsidian/Kai/Kai Memory/backup-structure.md`
+3. **IDENTIFY** which protocol applies:
+   - `auto-push.sh` — For workspace + sessions (+ products in full mode)
+   - `auto-push.sh full` — For workspace + sessions + all products + Obsidian
+   - `backup-all.sh` — Local only, no GitHub
+   - `sync-to-obsidian.sh` — Memory files only
+4. **QUOTE** the relevant section to user: "Per protocol: [quote]"
+5. **EXECUTE** only after confirmation
+
+### If Uncertain:
+
+- **ASK:** "Which backup protocol should I use?"
+- **OPTIONS:** "Should I run auto-push.sh full, or just auto-push.sh?"
+- **NEVER GUESS:** Wrong protocol = wrong backup location = lost work
+
+### Hard Stop Triggers:
+
+| Situation | Action |
+|-----------|--------|
+| Can't find backup-structure.md | STOP. Ask user for location. |
+| Protocol unclear | STOP. Quote what I found, ask for clarification. |
+| Multiple options | STOP. List options, ask which one. |
+| User says "just do it" | STOP. Still need to identify correct protocol first. |
+
+### Rule:
+
+**"I'll figure it out" = VIOLATION.**
+**"Let me check the protocol first" = COMPLIANCE.**
+
+I have failed this 3+ times. This order exists because I kept improvising instead of following the documented process. No more improvisation. Read the file. Every time.
+
+---
+
 ## FINAL RULE
 
 **Trust the file system, not the brain.**
@@ -432,4 +473,4 @@ Write it down. Every time. No exceptions.
 
 *Standing Orders maintained by: Pete (The Captain)*  
 *Enforced on: Kai (The Assistant)*  
-*Last violation logged: ORDER 12 — Update ran without explicit confirmation (2026-02-09)*
+*Last violation logged: ORDER 16 — Backup protocol not checked (2026-02-12)*
