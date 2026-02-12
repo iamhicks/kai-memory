@@ -47,10 +47,18 @@
 
 ## Current Project Context (Auto-Loaded)
 
-### MIND App (11-02-2026)
-**Status:** Sorting features fully functional
+### MIND App (12-02-2026)
+**Status:** AI Chat history fully implemented and working
 
-**Recent Fixes:**
+**Recent Features:**
+- ✅ **Per-note AI Chat history** — Each note has isolated conversation thread
+- ✅ **Chat persistence** — Saved to `kb_ai_chat_history` in localStorage  
+- ✅ **Chat selector dropdown** — Shows current note, lists other notes with history
+- ✅ **Grok-style UI** — User bubbles (dark grey), AI on background, rounded input
+- ✅ **Context-aware AI** — Responses include last 10 messages from note's history
+- ✅ **Tab switching fix** — `switchTab()` now properly calls `switchToNoteChat()`
+
+**Previous Fixes:**
 - Pinned (Favorites) section sort dropdown now visible and working
 - Folder date sorting works with proper timestamps
 - Added "Custom (Manual Order)" option for manual drag-and-drop reordering
@@ -61,6 +69,9 @@
 - Folders now have `createdAt` and `updatedAt` timestamps
 - Sort preference saved in `settings.folderSort` and `settings.favoritesSort`
 - Custom sort preserves manual order; other sorts persist the new order
+- Chat history: `aiChatHistory[noteId] = [{role, content, timestamp}, ...]`
+
+**Current Stable:** `STABLE-12-02-26-0004-WORKING/`
 
 ### i_am_Hicks Product Suite
 **Status:** Live with monochrome redesign
@@ -115,7 +126,7 @@ When evaluating new features or products, refer to these:
 ### Product Suite Status
 | Product | Status | Priority |
 |---------|--------|----------|
-| MIND | ✅ Working, needs Ollama | Medium |
+| MIND | ✅ Complete (AI Chat working) | Medium |
 | EDGE | 🚫 Not started | High |
 | FLOW | 🚫 Not started | High |
 | VAULT | 🚫 **On hold** — removed from website | — |
