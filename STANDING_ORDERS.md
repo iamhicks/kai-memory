@@ -109,19 +109,32 @@ If I can't prove it works, it doesn't work.**
 - Before major refactoring
 - Before "experimenting"
 - Before any "trust me" moment
-- **During active development** — checkpoint at milestones (see backup-structure.md Dev Workflow)
 
-### Dev Checkpoints (MIND/FLOW/EDGE/Website):
+### Dev Checkpoints — During Active Product Development ONLY
 
+**Applies when:** Working on MIND, FLOW, EDGE, or Website for extended sessions (not minor edits)
+
+**When to checkpoint:**
+| Trigger | Folder | Example |
+|---------|--------|---------|
+| Feature works | `stable/` | `Backups/stable/v1.2-tab-fix/` |
+| Before risky change | `dev/` | `Backups/dev/before-refactor/` |
+| End of session | `dev/` | `Backups/dev/end-of-session-1530/` |
+
+**Quick commands:**
 ```bash
 # At milestone (feature works)
-mkdir -p Backups/stable/v1.2-feature-name
-cp -r * Backups/stable/v1.2-feature-name/
+mkdir -p Backups/stable/v1.2-feature-name && cp -r * Backups/stable/v1.2-feature-name/
 
 # Before risky change
-mkdir -p Backups/dev/before-experiment
-cp -r * Backups/dev/before-experiment/
+mkdir -p Backups/dev/before-experiment && cp -r * Backups/dev/before-experiment/
 ```
+
+**When NOT required:**
+- Minor edits (typo fixes, small tweaks)
+- Documentation updates
+- Config changes
+- Single-line fixes
 
 ### Rule:
 
