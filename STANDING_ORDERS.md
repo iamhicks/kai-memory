@@ -109,6 +109,19 @@ If I can't prove it works, it doesn't work.**
 - Before major refactoring
 - Before "experimenting"
 - Before any "trust me" moment
+- **During active development** — checkpoint at milestones (see backup-structure.md Dev Workflow)
+
+### Dev Checkpoints (MIND/FLOW/EDGE/Website):
+
+```bash
+# At milestone (feature works)
+mkdir -p Backups/stable/v1.2-feature-name
+cp -r * Backups/stable/v1.2-feature-name/
+
+# Before risky change
+mkdir -p Backups/dev/before-experiment
+cp -r * Backups/dev/before-experiment/
+```
 
 ### Rule:
 

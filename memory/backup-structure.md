@@ -282,6 +282,61 @@ Includes subdirectories:
 
 ---
 
+## Dev Workflow — Active Development Checkpoints
+
+When actively developing MIND, FLOW, EDGE, or Website, use **manual checkpoints** at key moments:
+
+### When to Create Checkpoints
+
+| Trigger | Action | Where |
+|---------|--------|-------|
+| Feature works | Save to `stable/` | `Repos/mind/app/Backups/stable/v1.2-feature-name/` |
+| Before risky change | Save to `dev/` | `Repos/mind/app/Backups/dev/before-refactor/` |
+| End of session | Run full backup | `auto-push.sh full` |
+| Milestone achieved | Copy to `stable/` with version | `Backups/stable/v1.0-ai-chat-working/` |
+
+### Quick Checkpoint Commands
+
+```bash
+# Navigate to product directory
+cd ~/Documents/Kai/Repos/mind/app
+
+# Create stable milestone (feature works)
+mkdir -p Backups/stable/v1.2-tab-switch-fix
+cp -r * Backups/stable/v1.2-tab-switch-fix/ 2>/dev/null
+echo "✓ Stable checkpoint created"
+
+# Create dev checkpoint (before risky change)
+mkdir -p Backups/dev/before-experiment
+cp -r * Backups/dev/before-experiment/ 2>/dev/null
+echo "✓ Dev checkpoint created"
+```
+
+### Dev Session End Protocol
+
+```bash
+# 1. Quick checkpoint of current state
+mkdir -p Backups/dev/end-of-session-$(date +%H%M)
+cp -r * Backups/dev/end-of-session-$(date +%H%M)/ 2>/dev/null
+
+# 2. Run full backup (includes this checkpoint)
+cd ~/.openclaw/workspace && bash auto-push.sh full
+```
+
+### Naming Conventions
+
+| Folder | Purpose | Example |
+|--------|---------|---------|
+| `stable/` | Working versions, named milestones | `v1.0-ai-chat/`, `v1.2-tab-fix/` |
+| `dev/` | Temporary checkpoints, experiments | `before-refactor/`, `debug-attempt-1/` |
+| `daily/` | Auto timestamped (cron) | `12-02-26/0800/` |
+
+### Rule
+
+**Cron skips products** (saves space). **You checkpoint manually** during dev. **Full backup at end.**
+
+---
+
 ## Deprecated / Don't Use
 
 | Location | Reason | Status |
