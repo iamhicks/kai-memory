@@ -1,7 +1,44 @@
 # Complete Backup & Sync Architecture
 
-**Last Updated:** 11-02-2026  
+**Last Updated:** 12-02-2026  
 **Purpose:** Reference document for how all backups, syncs, and GitHub pushes work
+
+---
+
+## Quick Reference — Manual Commands
+
+**Run these from any terminal:**
+
+```bash
+# QUICK MODE (cron default) — Workspace + Sessions + GitHub push
+# Backs up: ~/.openclaw/workspace/* → Kai_Memory/Workspace/
+#           Sessions (.jsonl) → Kai_Memory/Sessions/
+#           Pushes to: github.com/iamhicks/kai-memory
+cd ~/.openclaw/workspace && bash auto-push.sh
+
+# FULL MODE — Everything + Obsidian + Products
+# Backs up: Everything in quick mode PLUS:
+#           Obsidian vault → Kai_Obsidian/Backups/
+#           MIND/FLOW/EDGE → Repos/*/Backups/
+#           Pushes to: kai-memory + kai-obsidian repos
+cd ~/.openclaw/workspace && bash auto-push.sh full
+
+# OBSIDIAN SYNC — Memory files only
+# Backs up: workspace/memory/* → Kai_Obsidian/Kai Memory/
+#           (no GitHub push, no other files)
+cd ~/.openclaw/workspace && bash sync-to-obsidian.sh
+
+# LOCAL ONLY — Kai_Memory local backup (no GitHub)
+# Backs up: Workspace → Kai_Memory/Workspace/
+#           Sessions → Kai_Memory/Sessions/
+#           (does NOT push to GitHub)
+cd ~/.openclaw/workspace && bash backup-all.sh
+```
+
+**Check last backup:**
+```bash
+ls -la ~/Documents/Kai/Kai_Memory/Workspace/
+```
 
 ---
 
