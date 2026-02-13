@@ -1,119 +1,88 @@
 # Pending Tasks
 
-## FLOW v1 Development (Active)
+## FLOW v2 Development (Active)
 
-### New Modules to Build (Priority Order)
+### Priority Order (Updated 13-02-2026)
 
-#### 1. Kai Profile / Soul Editor 🌊
-**Status:** Not started  
+#### 1. Module Interconnection 🔄
+**Status:** In Progress  
 **Priority:** HIGH  
 
-A visual editor for my identity files:
-- **SOUL.md** — personality, rules, vibe
-- **IDENTITY.md** — name, emoji, avatar, role
-- **USER.md** — Pete's profile (timezone, preferences)
-- **AGENTS.md** — operational rules
+Ensure all FLOW modules can communicate:
+- Chat messages sync to Activity stream
+- Tasks created in Chat appear in Kanban
+- Kai Profile changes reflect in System Dashboard
+- Schedule module triggers notifications
 
-**UI Design:**
-- Tabbed markdown editor (like MIND's notes)
-- Syntax highlighting
-- "Save back to workspace" button
-- Live preview of changes
-- File tree sidebar for navigation
-
-**Data:** Read/write from `~/.openclaw/workspace/`
+**Files to modify:**
+- `server.js` — Add cross-module event bus
+- `dashboard.html` — Module-to-module messaging
 
 ---
 
-#### 2. Skills Browser / Manager 🛠️
+#### 2. UI Polish ✨
 **Status:** Not started  
 **Priority:** HIGH  
 
-Browse and manage my 46 installed skills:
-- Grid/list view of all skills
-- Search/filter by category
-- Skill details: name, description, usage
-- Source indicator (clawhub.com vs local)
-
-**Current Skills:** github, weather, mind, healthcheck, obsidian, video-frames, etc. (46 total)
-
-**UI Design:**
-- Card grid with icons
-- Category tags (Development, Media, System, etc.)
-- Click to view SKILL.md content
-- "Install new" button (future: with confirmation)
-
-**Data:** Scan `/usr/local/lib/node_modules/openclaw/skills/`
+- Consistent styling across all modules
+- Mobile responsiveness check
+- Dark mode refinements
+- Loading states for all async operations
 
 ---
 
-#### 3. System Dashboard 📊
+#### 3. MIND Final Bug Fixes 🐛
+**Status:** Not started  
+**Priority:** HIGH  
+
+- Message box positioning (bottom of sidebar)
+- Any remaining AI chat issues
+- Export functionality test
+- Backup/restore verification
+
+**See:** `MIND Technical Specification.md` for checklist
+
+---
+
+#### 4. Website Content Updates 🌐
 **Status:** Not started  
 **Priority:** MEDIUM  
 
-OpenClaw gateway integration:
-- **Sessions** — active conversations list
-- **Usage** — token/cost estimates
-- **Crons** — scheduled jobs, next run times
-- **Channels** — Telegram status
-- **Config** — read-only view of openclaw.json
+**For MIND Launch:**
+- Homepage hero update
+- Feature list refinement
+- Pricing page ($29)
+- Demo video/gif
+- Gumroad integration
 
-**UI Design:**
-- Widget-style cards
-- Real-time status indicators
-- Simple JSON viewer for config
-- Cron job calendar view
-
-**Data:** Via OpenClaw API (`gateway:18789`)
+**See:** `Website brief.md` in Obsidian
 
 ---
 
-### Integration into FLOW Kanban
+## Completed
 
-Add these as cards to the **"Kai Modules"** board:
-
-| Column | Cards |
-|--------|-------|
-| **Backlog** | System Dashboard, Install new skills |
-| **To Do** | — |
-| **In Progress** | — |
-| **Review** | — |
-| **Done** | — |
-
-**New Board Template:** `kai-system`
+- [x] Kai Profile / Soul Editor
+- [x] Skills Browser / Manager
+- [x] System Dashboard
+- [x] Unified Chat with real-time sync
+- [x] Schedule & Heartbeat module
+- [x] STABLE backup created (STABLE-13-02-2026)
+- [x] 3-Product Strategy documented
+- [x] Unified App Architecture documented
 
 ---
 
-## End of Week Reminders (Feb 13, 2026)
+## Strategy Reference
 
-### 1. Cleanup Deprecated Website Folders
-**Priority:** Medium  
-**Why:** Website repo has old demo folders that should be removed now that new structure exists
+**Current Plan:** 3 Separate Products
+1. **MIND** ($29) — Launch first, simple, offline-first
+2. **FLOW** ($29) — Launch second, power-user tool
+3. **MIND+FLOW** ($49) — Build only if demand exists
 
-**Folders to remove from `~/Documents/Kai/Repos/website/`:**
-- `mind-demo/` → Now lives in `~/Documents/Kai/Repos/mind/demo/`
-- `mind/` → Empty folder
-- `mind-tauri/` → Now lives in `~/Documents/Kai/Repos/mind/app/`
-- `flow-demo/` → Now lives in `~/Documents/Kai/Repos/flow/demo/`
-- `flow/` → Empty folder
-
-**Keep in website/:**
-- `index.html` (homepage)
-- `about/` (about page)
-- `mission-control/` (dashboard)
-- `CNAME` (domain config)
-- `edge-demo/` (until EDGE gets proper repo)
-
-**Note:** Only remove after verifying new structure works and backups are current.
+**See Obsidian:**
+- `Business/Strategy/3-Product Strategy.md`
+- `i_am-Hicks/i_am_Flow/Unified App Architecture.md`
 
 ---
 
-## Reminder Schedule
-
-| Task | When | Channel |
-|------|------|---------|
-| Cleanup deprecated folders | Friday 09:00 | Telegram |
-
----
-
-*Created: 09-02-2026*
+*Last updated: 13-02-2026*
