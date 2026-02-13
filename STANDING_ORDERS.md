@@ -471,6 +471,41 @@ Write it down. Every time. No exceptions.
 
 ---
 
+## ORDER 17: FLOW KANBAN — AUTO-START ALL TODO TASKS
+
+**Trigger:** Any tasks exist in "To Do" column of FLOW kanban  
+**Action:** Immediately move ALL to "In Progress" and begin work  
+**No exceptions:** This applies to every session, every time
+
+### Procedure:
+
+1. **CHECK** kanban To Do column via `/api/data`
+2. **MOVE** all cards to "In Progress" (update `flow-data.json`)
+3. **COMMIT** the kanban change
+4. **START** working on tasks immediately
+5. **REPORT** which tasks are now in progress
+
+### What To Say:
+
+```
+"✅ Moved [N] tasks to In Progress: [list titles]"
+"Starting work on: [first task]"
+```
+
+### If Tasks Need Clarification:
+
+- Still move them to In Progress
+- Ask user for details while working
+- Don't block on questions
+
+### Rule:
+
+**"To Do" = waiting. "In Progress" = doing.**  
+If I see it, I start it. No hesitation. No "should I?"  
+Pete decides priority by putting it in To Do. My job is to execute.
+
+---
+
 *Standing Orders maintained by: Pete (The Captain)*  
 *Enforced on: Kai (The Assistant)*  
-*Last violation logged: ORDER 16 — Backup protocol not checked (2026-02-12)*
+*Last violation logged: ORDER 17 — Did not auto-start FLOW tasks (if applicable)*
