@@ -159,26 +159,24 @@ Three scripts manage the backup ecosystem:
 │       └── Backups/
 │           └── daily/
 ├── flow/
-│   ├── app/                  # Dashboard HTML/CSS/JS
+│   ├── app/                  # Dashboard HTML/CSS/JS + ALL backup files
+│   │   ├── dashboard.html
+│   │   ├── kanban.html
+│   │   ├── server.js         # Copied here for unified backup
+│   │   ├── flow-data.json    # Copied here for unified backup
+│   │   ├── data/             # Copied here for unified backup
 │   │   └── Backups/
 │   │       └── daily/
 │   │           └── dd-mm-yy/
 │   │               └── hhmm/
 │   │                   ├── dashboard.html
 │   │                   ├── kanban.html
-│   │                   └── (other app files)
-│   ├── data/                 # Runtime data (messages, events, etc.)
-│   ├── flow-data.json        # Kanban data
-│   ├── server.js             # Node.js server
-│   ├── package.json          # Dependencies
-│   └── Backups/              # ← ROOT FILES BACKUP (manual)
-│       └── daily/
-│           └── dd-mm-yy/
-│               └── hhmm/
-│                   ├── server.js
-│                   ├── flow-data.json
-│                   ├── package.json
-│                   └── data/
+│   │                   ├── server.js
+│   │                   ├── flow-data.json
+│   │                   └── data/
+│   ├── data/                 # Live runtime data (source)
+│   ├── flow-data.json        # Live kanban data (source)
+│   └── server.js             # Live server (source)
 ├── edge/                     # (when created)
 └── website/
     └── Backups/
@@ -327,19 +325,39 @@ cp -r * Backups/dev/before-experiment/ 2>/dev/null
 echo "✓ Dev checkpoint created"
 ```
 
-### FLOW Special Case — Root Files
+### FLOW Complete Backup — All Files Together
 
-FLOW has both `app/` subfolder (HTML/CSS/JS) and root files (server, data). The automated scripts only back up subfolders. **Root files require manual backup:**
+FLOW backups include BOTH app files AND root server files in one location:
 
+```
+flow/app/Backups/daily/dd-mm-yy/hhmm/
+├── dashboard.html      # App UI
+├── kanban.html         # App UI
+├── server.js           # Node.js server (copied from root)
+├── flow-data.json      # Kanban data (copied from root)
+├── package.json        # Dependencies (copied from root)
+└── data/               # Runtime data (copied from root)
+    ├── messages.json
+    ├── events.json
+    └── memory.json
+```
+
+**Manual complete backup command:**
 ```bash
-# Manual FLOW root file backup
 cd ~/Documents/Kai/Repos/flow
 DATE=$(date +%d-%m-%y)
 TIME=$(date +%H%M)
-mkdir -p Backups/daily/$DATE/$TIME
-cp server.js flow-data.json package.json Backups/daily/$DATE/$TIME/
-cp -r data Backups/daily/$DATE/$TIME/
-echo "✓ FLOW root files backed up to Backups/daily/$DATE/$TIME/"
+BACKUP_DIR=app/Backups/daily/$DATE/$TIME
+mkdir -p $BACKUP_DIR
+
+# Copy app files
+cp app/*.html $BACKUP_DIR/ 2>/dev/null
+
+# Copy root files
+cp server.js flow-data.json package.json $BACKUP_DIR/
+cp -r data $BACKUP_DIR/
+
+echo "✓ FLOW complete backup: $BACKUP_DIR"
 ```
 
 ### Dev Session End Protocol
