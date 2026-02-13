@@ -159,12 +159,26 @@ Three scripts manage the backup ecosystem:
 │       └── Backups/
 │           └── daily/
 ├── flow/
-│   ├── app/
+│   ├── app/                  # Dashboard HTML/CSS/JS
 │   │   └── Backups/
 │   │       └── daily/
-│   └── demo/
-│       └── Backups/
-│           └── daily/
+│   │           └── dd-mm-yy/
+│   │               └── hhmm/
+│   │                   ├── dashboard.html
+│   │                   ├── kanban.html
+│   │                   └── (other app files)
+│   ├── data/                 # Runtime data (messages, events, etc.)
+│   ├── flow-data.json        # Kanban data
+│   ├── server.js             # Node.js server
+│   ├── package.json          # Dependencies
+│   └── Backups/              # ← ROOT FILES BACKUP (manual)
+│       └── daily/
+│           └── dd-mm-yy/
+│               └── hhmm/
+│                   ├── server.js
+│                   ├── flow-data.json
+│                   ├── package.json
+│                   └── data/
 ├── edge/                     # (when created)
 └── website/
     └── Backups/
@@ -207,7 +221,8 @@ Step 3: Push workspace → GitHub (kai-memory repo)
 FULL MODE (manual only):
 Step 4: Backup MIND app → Repos/mind/app/Backups/daily/dd-mm-yy/hhmm/
 Step 5: Backup MIND demo → Repos/mind/demo/Backups/daily/dd-mm-yy/hhmm/
-Step 6: Backup FLOW → Repos/flow/*/Backups/daily/dd-mm-yy/hhmm/
+Step 6: Backup FLOW app/demo → Repos/flow/*/Backups/daily/dd-mm-yy/hhmm/
+       NOTE: Root files (server.js, flow-data.json, data/) backed up separately
 Step 7: Backup website → Repos/website/Backups/daily/dd-mm-yy/hhmm/
 Step 8: Backup Obsidian vault → Kai_Obsidian/Kai/Backups/dd-mm-yy/hhmm/
 Step 9: Push Obsidian → GitHub (kai-obsidian repo)
@@ -310,6 +325,21 @@ echo "✓ Stable checkpoint created"
 mkdir -p Backups/dev/before-experiment
 cp -r * Backups/dev/before-experiment/ 2>/dev/null
 echo "✓ Dev checkpoint created"
+```
+
+### FLOW Special Case — Root Files
+
+FLOW has both `app/` subfolder (HTML/CSS/JS) and root files (server, data). The automated scripts only back up subfolders. **Root files require manual backup:**
+
+```bash
+# Manual FLOW root file backup
+cd ~/Documents/Kai/Repos/flow
+DATE=$(date +%d-%m-%y)
+TIME=$(date +%H%M)
+mkdir -p Backups/daily/$DATE/$TIME
+cp server.js flow-data.json package.json Backups/daily/$DATE/$TIME/
+cp -r data Backups/daily/$DATE/$TIME/
+echo "✓ FLOW root files backed up to Backups/daily/$DATE/$TIME/"
 ```
 
 ### Dev Session End Protocol
