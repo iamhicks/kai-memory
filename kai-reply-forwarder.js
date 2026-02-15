@@ -1,6 +1,7 @@
 /**
  * Kai Reply Forwarder
  * Posts AI replies to FLOW so conversations are complete
+ * NOW WITH INSTANT CHANNEL DETECTION (no delays)
  */
 
 const http = require('http');
@@ -14,7 +15,33 @@ class KaiReplyForwarder {
   }
 
   /**
-   * Get the channel for a message by ID
+   * Parse channel from message text immediately (INSTANT - no file read needed)
+   * @param {string} text - The message text to parse
+   * @returns {string} - The target channel
+   */
+  parseChannelFromText(text) {
+    const prefixMatch = text.match(/^\/(\w+)\s/);
+    if (prefixMatch) {
+      const roleMap = {
+        'general': 'general',
+        'code': 'code', 'dev': 'code', 'developer': 'code',
+        'design': 'design', 'ui': 'design', 'ux': 'design',
+        'strategy': 'strategy', 'strat': 'strategy',
+        'debug': 'debug', 'bug': 'debug',
+        'marketing': 'marketing', 'mkt': 'marketing',
+        'research': 'research', 'r&d': 'research',
+        'writing': 'writing', 'copy': 'writing',
+        'legal': 'legal', 'law': 'legal',
+        'finance': 'finance', 'fin': 'finance',
+        'trading': 'trading', 'trade': 'trading'
+      };
+      return roleMap[prefixMatch[1].toLowerCase()] || 'general';
+    }
+    return 'general';
+  }
+
+  /**
+   * Get the channel for a message by ID (fallback method)
    * @param {string} messageId - The original message ID
    * @returns {string} - The channel (general, code, marketing, etc.)
    */
@@ -34,15 +61,25 @@ class KaiReplyForwarder {
   }
 
   /**
-   * Forward a reply to FLOW - auto-detects channel from original message
+   * Forward a reply to FLOW - INSTANT with auto-detected channel
    * @param {Object} reply - The reply to forward
    * @param {string} reply.text - Reply content
-   * @param {string} reply.inReplyTo - Original message ID (to determine channel)
+   * @param {string} reply.inReplyTo - Original message ID
+   * @param {string} reply.originalText - Original message text (for instant channel detection)
    * @param {string} reply.channel - Optional: override channel
    */
   async forwardReply(reply) {
-    // Auto-detect channel from original message, or use provided channel
-    const channel = reply.channel || this._getMessageChannel(reply.inReplyTo);
+    // INSTANT: Parse channel from original text if provided, otherwise lookup by ID
+    let channel;
+    if (reply.channel) {
+      channel = reply.channel;
+    } else if (reply.originalText) {
+      channel = this.parseChannelFromText(reply.originalText);  // INSTANT - no delay
+    } else if (reply.inReplyTo) {
+      channel = this._getMessageChannel(reply.inReplyTo);  // Fallback - requires file read
+    } else {
+      channel = 'general';
+    }
     
     const payload = {
       id: `kai_${Date.now()}`,
