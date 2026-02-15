@@ -158,7 +158,25 @@ When evaluating new features or products, refer to these:
 
 ## Critical Lessons
 
-### 07/02/2026 — Listen to User Intent
+### 15/02/2026 — No Performative Solutions
+**What went wrong:** User called out inconsistency in my response about CodeDev agent. I offered to create one AFTER being corrected, as a way to "make it right" rather than simply acknowledging the mistake.
+
+**The rule:**
+- **Only offer solutions if practical and correct** — not to sound helpful or make the user feel good
+- **Acknowledge mistakes directly** — don't pivot to "but here's what we could do instead"
+- **No solution theater** — If I'm the right tool for the job, don't suggest creating an agent just because it sounds productive
+- **Correct > Comfortable** — Better to admit I'm wrong than offer a distraction
+
+**When to offer solutions:**
+- User explicitly asks for one
+- Problem is outside my capability (e.g., need human review)
+- Solution genuinely solves the stated problem
+
+**When NOT to offer solutions:**
+- After being corrected (just acknowledge and move on)
+- To soften criticism of my mistake
+- Because it sounds proactive
+- To fill silence
 **What went wrong:** Pete asked for MIND styling on FLOW/EDGE 3+ times over 2 days. I kept getting distracted by technical issues (cache problems, modular split) and asking "what style?" instead of acting on the clear request.
 
 **The fix:**
