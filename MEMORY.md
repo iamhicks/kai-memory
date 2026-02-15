@@ -122,6 +122,8 @@ When evaluating new features or products, refer to these:
 - **WebLLM vs Ollama:** Skip WebLLM (storage limits); use Ollama for AI features
 - **Backup strategy:** Multiple backup locations (local + GitHub) prevent data loss
 - **Development Procedure:** Created `DEV_PROCEDURE.md` with mandatory pre-deployment checklist. **Must follow for every code change.** No more "I'll remember next time."
+- **Unified Agent Architecture:** One powerful agent (Kai) with contextual channels beats multi-agent silos. Adopted ClawVault-style structured memory with typed entries (decisions, lessons, preferences) and wiki-links for knowledge graph
+- **Per-Agent API Keys:** Support global + per-agent API keys with provider selection (Kimi, OpenAI, Ollama) for cost tracking and flexibility
 
 ### Product Suite Status
 | Product | Status | Priority |
@@ -157,6 +159,27 @@ When evaluating new features or products, refer to these:
 ---
 
 ## Critical Lessons
+
+### 15/02/2026 — Unified Agent Architecture
+**What we learned:** After building multi-agent system (CodeDev, Tester, Designer, etc.), discovered through ClawVault/Claw Control research that one powerful agent with contextual channels is superior to siloed specialist agents.
+
+**Why multi-agent was wrong:**
+- Artificial separation of expertise that should be unified
+- Memory silos prevent cross-domain insights
+- Forces user to "choose" before asking a question
+- More complex without benefit
+
+**The better approach:**
+- One Kai with contextual channels (General, Code, Design, Strategy, Debug)
+- Same intelligence, different hats
+- Shared memory vault across all contexts
+- User just asks; I adapt automatically
+
+**Implementation:**
+- Replaced agent selection with channel selection in sidebar
+- Each channel has color-coded header and role indicator
+- Unified ClawVault memory with typed entries (decisions, lessons, preferences)
+- Wiki-links create knowledge graph across all memories
 
 ### 15/02/2026 — No Performative Solutions
 **What went wrong:** User called out inconsistency in my response about CodeDev agent. I offered to create one AFTER being corrected, as a way to "make it right" rather than simply acknowledging the mistake.
