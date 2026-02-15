@@ -136,7 +136,82 @@ When evaluating new features or products, refer to these:
 
 ## Future Projects (Post-Launch)
 
-### Mission Control Dashboard
+### Telegram → FLOW Auto-Forwarding
+**Status:** Fully implemented and working  
+**Date:** 15-02-2026  
+**Location:** `~/.openclaw/workspace/telegram-flow-forwarder.js`
+
+**Components:**
+1. **telegram-flow-forwarder.js** - Core forwarding logic
+2. **telegram-queue.js** - Message queue management  
+3. **telegram-monitor.js** - Continuous monitoring service
+4. **kai-reply-forwarder.js** - AI reply forwarding with auto-channel detection
+
+**How It Works:**
+```
+Telegram Message → I queue it → Monitor reads every 5s → Forwards to FLOW → WebSocket updates Chat
+```
+
+**Reply Workflow (IMPORTANT):**
+```
+1. Queue user's message
+2. WAIT 5 seconds (let system save to messages.json)
+3. Get channel from saved message (auto-detect)
+4. Forward my reply to same channel
+```
+
+**To Start (Option A - Continuous Monitor):**
+
+Step 1: Start FLOW server
+```bash
+cd /Users/peteroberts/Documents/Kai/Repos/flow-dev
+npm start
+```
+
+Step 2: Start the monitor (new terminal)
+```bash
+cd ~/.openclaw/workspace
+node telegram-monitor.js
+```
+
+Step 3: Messages auto-forward
+- Every Telegram message I receive gets queued
+- Monitor checks every 5 seconds
+- Forwards to FLOW at `http://localhost:3457/api/receive`
+- Saved to `~/.openclaw/workspace/memory/flow/transcripts/`
+
+**How I Queue Messages:**
+```javascript
+const { queueMessage } = require('./telegram-queue.js');
+queueMessage({
+  id: message.id,
+  text: message.text,
+  sender: 'Pete',
+  timestamp: new Date().toISOString()
+});
+```
+
+**How I Forward Replies:**
+```javascript
+const { getReplyForwarder } = require('./kai-reply-forwarder.js');
+
+// Step 1: Queue message
+queueMessage({ id: 'msg_123', text: '...', sender: 'Pete', ... });
+
+// Step 2: Wait 5 seconds, then reply (auto-detects channel)
+setTimeout(() => {
+  getReplyForwarder().forwardReply({
+    text: 'My reply here',
+    inReplyTo: 'msg_123'  // Auto-detects channel from this message
+  });
+}, 5000);
+```
+
+**Viewing in FLOW:**
+- Open FLOW dashboard → Chat tab
+- Messages appear in correct channels (general, code, marketing, etc.)
+- My replies appear in same channel as your message
+- Full conversation history preserved
 **Source:** Alex Finn recommendation (via X/Twitter, 07-02-2026)  
 **Status:** Deferred — revisit after i_am_Hicks product suite complete  
 **Priority:** After EDGE/FLOW/VAULT launched  
