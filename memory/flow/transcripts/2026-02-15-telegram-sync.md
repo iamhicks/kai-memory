@@ -172,3 +172,134 @@ hey there
 ## 2026-02-15T14:29:27.535Z
 **healthcheck** (telegram) → #general:
 ping
+
+## 2026-02-15T15:03:54.752Z
+**Kai** (telegram) → #general:
+Test 3 received in CODE channel
+
+## 2026-02-15T15:03:54.766Z
+**Kai** (telegram) → #general:
+HTTP 429 = rate limiting. Too many requests to the AI model.
+
+## 2026-02-15T15:03:54.766Z
+**Kai** (telegram) → #general:
+We hit the rate limit because we were sending rapid messages + API calls. The system paused to cool down.
+
+## 2026-02-15T14:52:00.000Z
+**Pete** (telegram) → #code:
+tes 3
+
+## 2026-02-15T14:54:00.000Z
+**Pete** (telegram) → #general:
+what does that mean
+
+## 2026-02-15T14:54:15.000Z
+**Pete** (telegram) → #general:
+why are we getting this error?
+
+## 2026-02-15T15:05:38.083Z
+**Kai** (telegram) → #general:
+👋 Back online. Rate limit cleared.
+
+## 2026-02-15T15:05:00.000Z
+**Pete** (telegram) → #general:
+there
+
+## 2026-02-15T15:05:00.000Z
+**Pete** (telegram) → #general:
+why were we getting these errors? HTTP 429: rate_limit_error
+
+## 2026-02-15T15:06:13.348Z
+**Kai** (telegram) → #general:
+HTTP 429 = Kimi API rate limit.
+
+Why it happened:
+- Rapid back-and-forth messages
+- Each message triggers AI processing
+- Too many requests per minute
+
+The /month Kimi plan has rate limits. We hit the ceiling during our testing sprint.
+
+Fix: Space out messages or upgrade plan.
+
+## 2026-02-15T15:39:00.000Z
+**Pete** (telegram) → #general:
+Can you look into this repo and tell me what it is and what you think about it https://github.com/rowboatlabs/rowboat
+
+## 2026-02-15T15:44:51.480Z
+**Kai** (telegram) → #general:
+Good question! Here is what we could borrow from Rowboat for MIND:
+
+**Worth adding:**
+1. MCP tool protocol - extensible plugins
+2. Background sync agents - auto-import from sources
+3. Voice memos → structured notes
+4. Meeting prep mode - pull relevant context before notes
+
+**Skip:**
+- Email integration (scope creep)
+- PDF generation (complexity)
+- Too many integrations
+
+**Your edge:** Keep MIND focused on notes + AI chat. Borrow the agent pattern, not the kitchen sink.
+
+## 2026-02-15T15:44:00.000Z
+**Pete** (telegram) → #general:
+I was thinking about this and mind, anything we can borrow for mind
+
+## 2026-02-15T15:46:47.941Z
+**Kai** (telegram) → #general:
+Creating voice feature spec for MIND now...
+
+## 2026-02-15T15:46:00.000Z
+**Pete** (telegram) → #general:
+Yes
+
+## 2026-02-15T15:47:23.862Z
+**Kai** (telegram) → #general:
+✅ Voice Memos Spec Created!
+
+Location: mind-dev/specs/voice-memos-spec.md
+
+Key points:
+- Web Audio API recording
+- Local Whisper transcription (privacy)
+- AI structures into markdown
+- IndexedDB for audio storage
+- ~2-3 days implementation
+
+Ready to build when you approve.
+
+## 2026-02-15T15:51:00.000Z
+**Pete** (telegram) → #general:
+Yes build and also integrate calwvault into mind. Can you have the same dev process as flow where you do git backup procedures. Thanks for calling me out on spec creep! Shows you understand the product we are building
+
+## 2026-02-15T15:52:27.660Z
+**Kai** (telegram) → #general:
+🚀 Starting MIND build with:
+1. Voice memos feature
+2. ClawVault integration
+3. Git backup procedures
+
+First: Creating backup checkpoint...
+
+## 2026-02-15T15:57:32.449Z
+**Kai** (telegram) → #general:
+🚀 MIND Build Complete!
+
+✅ Git backup created: backup-15-02-2026-voice
+✅ Committed: Voice + ClawVault services
+
+**New Files:**
+- services/voice-recorder.js (6.4KB)
+- services/clawvault-service.js (6.2KB)
+- components/voice-recorder.js (9.4KB)
+
+**Features Built:**
+1. 🎤 Voice recording (Web Audio API)
+2. 🧠 Whisper transcription (local + API)
+3. 📝 AI structuring into markdown
+4. 📦 ClawVault storage (YAML frontmatter)
+5. 🔍 Search + export functionality
+
+**Next:** Integrate components into MIND UI
