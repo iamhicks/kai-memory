@@ -275,19 +275,19 @@ This is a starting point. Add your own conventions, style, and rules as you figu
 
 ### Folder Structure
 - `app-dev/` — Active development (make changes here)
-- `app-stable-archive-YYYYMMDD/` — Archived stable releases
+- `app-stable/dd-mm-yy/hhmm/` — Archived stable releases (date/time folders)
 - `app-live/` — Production app (DO NOT TOUCH)
 
 ### Process
 1. **Always work in `dev/`** — Never touch `live/`
 2. **Test in dev** before merging
-3. **Archive current stable** before deploying
+3. **Archive current stable** to `stable/dd-mm-yy/hhmm/` before deploying
 4. **Copy dev → live** only when tested
 5. **Verify live works** after deploy
 
 ### Current Apps
-- **FLOW**: `//flow-dev/`, `//flow-stable-archive-*`, `//flow-live/`
-- **MIND**: `//mind-dev/`, `//mind-stable-archive-20240216`, `//mind-live/`
+- **FLOW**: `//flow-dev/`, `//flow-stable/dd-mm-yy/hhmm/`, `//flow-live/`
+- **MIND**: `//mind-dev/`, `//mind-stable/16-02-26/1541/`, `//mind-live/`
 
 ### See Also
 - `WORKFLOW_MIND.md` — Detailed MIND workflow
