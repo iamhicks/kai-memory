@@ -326,3 +326,38 @@ This is a starting point. Add your own conventions, style, and rules as you figu
 - **Patterns:** "Pete always asks for X" → make it default
 - **Mistakes:** Log root cause, update rules to prevent recurrence
 - **Pruning:** Daily logs archived after 7 days, summaries promoted to MEMORY.md
+
+---
+
+## Bug Tracking Workflow (NEW)
+
+**Trigger:** User reports bugs or issues during development/testing
+**Action:** Track bugs in every reply until user confirms fix
+
+### Process:
+
+1. **Create bug checklist** when bugs are reported
+2. **Include checklist at end of EVERY reply**
+3. **Attempt fix** → mark as "PENDING TEST"
+4. **Only mark as FIXED** after user explicitly says "fixed" or "works"
+
+### Checklist Format (end of every reply):
+
+```
+## 🐛 Bug Tracker
+
+| Bug | Status |
+|-----|--------|
+| Bug description 1 | ✅ **FIXED** (user confirmed) |
+| Bug description 2 | ⏳ **PENDING TEST** |
+| Bug description 3 | ❌ **STILL BROKEN** |
+```
+
+### User Commands:
+- "Fixed ✅" → Mark as done
+- "Still broken ❌" → Keep investigating
+- "New bug 🐛" → Add to list
+
+### Rule:
+**Never assume a bug is fixed. Wait for user confirmation.**
+"Attempted fix" ≠ "Fixed"
