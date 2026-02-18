@@ -334,12 +334,28 @@ This is a starting point. Add your own conventions, style, and rules as you figu
 **Trigger:** User reports bugs or issues during development/testing
 **Action:** Track bugs in every reply until user confirms fix
 
+### HARD RULES - NEVER BREAK THESE:
+
+1. **NEVER mark a bug as FIXED until the user explicitly says "fixed", "works", or "confirmed"**
+2. **ALWAYS use ⏳ PENDING TEST status after applying a fix**
+3. **ONLY the user can change status to ✅ FIXED**
+4. **Include bug tracker at the end of EVERY reply until all bugs confirmed**
+
 ### Process:
 
 1. **Create bug checklist** when bugs are reported
 2. **Include checklist at end of EVERY reply**
-3. **Attempt fix** → mark as "PENDING TEST"
-4. **Only mark as FIXED** after user explicitly says "fixed" or "works"
+3. **Attempt fix** → mark as "⏳ **PENDING TEST**"
+4. **Only mark as ✅ FIXED** after user explicitly says "fixed" or "works"
+
+### Status Meanings:
+
+| Status | Meaning | Who Can Set |
+|--------|---------|-------------|
+| ⏳ **PENDING TEST** | Fix applied, waiting for user to test | Kai |
+| ✅ **FIXED** | User confirmed fix works | **USER ONLY** |
+| ❌ **STILL BROKEN** | User tested, fix didn't work | User or Kai |
+| 🔄 **IN PROGRESS** | Kai is working on fix | Kai |
 
 ### Checklist Format (end of every reply):
 
