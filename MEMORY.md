@@ -299,3 +299,26 @@ setTimeout(() => {
 ### Bug Tracking Protocol  
 **Date:** 18/02/2026  
 **Rule:** NEVER mark bugs as FIXED until Pete explicitly confirms. Always use ⏳ PENDING TEST status after fixes. Include bug tracker in every reply until confirmed.
+
+### MIND Product Pivot
+**Date:** 18/02/2026  
+**Decision:** Pivot MIND from "smart notes app" to "AI Accountability Partner for Solo Entrepreneurs"
+
+**Core insight:** MIND isn't competing with Notion/Obsidian. It's competing with:
+- Business coaches ($500+/mo)
+- Co-founder search
+- Mastermind groups ($200+/mo)
+
+**New positioning:** "MIND replaces the team you can't afford and the co-founder you haven't found."
+
+**Three phases:**
+1. Chaos → Clarity (capture ideas)
+2. Research → Knowledge (AI advisors help learn)
+3. Knowledge → Action (Projects with accountability)
+
+**Architecture:**
+- **Standalone:** Embedded LLM + file memory = "good enough"
+- **+OpenClaw:** Rich personality, continuity, proactive reach-out = "full soul"
+- **Upgrade path:** "Give your advisors soul - connect to OpenClaw"
+
+**Tagline:** "Your AI team for building your business"
