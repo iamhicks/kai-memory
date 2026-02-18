@@ -287,3 +287,15 @@ setTimeout(() => {
 - Created `memory/pending-requests.md` tracking file
 - Added pending requests check to Session Start Protocol
 - New DEV_PROCEDURE.md rule: "User Intent Capture" — confirm understanding before coding
+
+---
+
+## User Preferences
+
+### Alert on Memory Search Failure
+**Date:** 18/02/2026  
+**Preference:** If memory_search tool fails/breaks, **immediately inform Pete** — do not silently fail over to file reading. This is a critical system failure that affects my ability to recall context.
+
+### Bug Tracking Protocol  
+**Date:** 18/02/2026  
+**Rule:** NEVER mark bugs as FIXED until Pete explicitly confirms. Always use ⏳ PENDING TEST status after fixes. Include bug tracker in every reply until confirmed.
