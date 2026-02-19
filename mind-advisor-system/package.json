@@ -1,0 +1,23 @@
+{
+  "name": "mind-advisor-system",
+  "version": "2.0.0",
+  "description": "Offline-first advisor routing system for MIND",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "tsx src/demo/cli.ts",
+    "demo": "tsx src/demo/cli.ts demo"
+  },
+  "keywords": ["advisor", "accountability", "offline-first"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "glob": "^11.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.3.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}

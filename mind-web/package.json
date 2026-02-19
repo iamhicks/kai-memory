@@ -1,0 +1,24 @@
+{
+  "name": "mind-web",
+  "version": "1.0.0",
+  "description": "MIND - Multi-Agent Intelligence Network Dashboard",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "build": "echo 'Static files ready in web/'",
+    "test": "echo 'Tests not yet implemented'"
+  },
+  "keywords": ["mind", "agents", "ai", "dashboard"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.1.0",
+    "morgan": "^1.10.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

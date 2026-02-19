@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "lastUpdated": "2026-02-19T10:57:00.914Z",
+  "documents": [
+    {
+      "id": "2026-02-17-pricing-decision",
+      "path": "2026-02-17-pricing-decision.md",
+      "content": "# Pricing Decision\n\nDate: 2026-02-17\nTags: #decision #pricing #revenue\nAdvisors: @strategist\n\n## Decision\n$299 standalone, upsell to OpenClaw for $29/mo\n\n## Reasoning\nMatches offline-first promise with premium tier.\n",
+      "tags": [
+        "decision",
+        "pricing",
+        "revenue"
+      ],
+      "date": "2026-02-17T00:00:00.000Z",
+      "createdAt": "2026-02-19T10:57:00.905Z",
+      "modifiedAt": "2026-02-19T10:57:00.905Z"
+    },
+    {
+      "id": "2026-02-15-blocker-landing-page",
+      "path": "2026-02-15-blocker-landing-page.md",
+      "content": "# Blocker: Landing Page Copy\n\nDate: 2026-02-15\nTags: #blocker #landing-page #copy\nAdvisors: @strategist\n\n## Issue\nLanding page hero copy still unresolved after 3 iterations.\n\n## Severity: Medium\n\n## Next Steps\n- Get user feedback on current version\n- Consider hiring a copywriter\n- A/B test two versions\n",
+      "tags": [
+        "blocker",
+        "landing-page",
+        "copy"
+      ],
+      "date": "2026-02-15T00:00:00.000Z",
+      "createdAt": "2026-02-19T10:57:00.905Z",
+      "modifiedAt": "2026-02-19T10:57:00.905Z"
+    },
+    {
+      "id": "2026-02-12-ship-milestone",
+      "path": "2026-02-12-ship-milestone.md",
+      "content": "# Ship Milestone: Core Router Complete\n\nDate: 2026-02-12\nTags: #ship #milestone #routing\nAdvisors: @product_lead\n\n## What Shipped\n- Project context router with @mentions\n- Advisor synthesis engine\n- Template-based advisor creation\n\n## Velocity Impact\nTasks per week increased from 4 to 6.\n",
+      "tags": [
+        "ship",
+        "milestone",
+        "routing"
+      ],
+      "advisor": "synthesis",
+      "date": "2026-02-12T00:00:00.000Z",
+      "createdAt": "2026-02-19T10:57:00.904Z",
+      "modifiedAt": "2026-02-19T10:57:00.904Z"
+    },
+    {
+      "id": "2026-02-10-strategic-decision",
+      "path": "2026-02-10-strategic-decision.md",
+      "content": "# Strategic Decision: MVP Scope\n\nDate: 2026-02-10\nTags: #decision #mvp #scope\nAdvisors: @strategist, @product_lead\n\n## Decision\nLaunch with advisor chat + accountability cadence only\n\n## Reasoning\nFaster validation of positioning. We can add features later based on user feedback.\n\n## Key Points\n- Focus on core value prop\n- Avoid feature creep\n- Ship fast, iterate faster\n",
+      "tags": [
+        "decision",
+        "mvp",
+        "scope"
+      ],
+      "advisor": "chat",
+      "date": "2026-02-10T00:00:00.000Z",
+      "createdAt": "2026-02-19T10:57:00.903Z",
+      "modifiedAt": "2026-02-19T10:57:00.904Z"
+    }
+  ]
+}
