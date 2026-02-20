@@ -47,6 +47,15 @@
 
 ## Current Project Context (Auto-Loaded)
 
+### MIND App (19-02-2026)
+**Status:** 4-Agent system with isolated chat histories, unified styling
+
+**Recent Fixes:**
+- ✅ **Per-agent chat isolation** — Each agent (Architect, Builder, Storyteller, Steward) has separate conversation history
+- ✅ **Unified chat styling** — Agent chat now uses same CSS classes as AI chat (`.ai-chat-message`, `.ai-chat-bubble`)
+- ✅ **Correct agent names** — Backend agent registry updated, replies show branded names
+- ✅ **Fixed layout overlap** — Messages no longer appear under left column
+
 ### MIND App (12-02-2026)
 **Status:** AI Chat history fully implemented and working
 
