@@ -45,6 +45,18 @@
 - 60-97% token savings
 - No context overflow
 
+## Critical User Information (DO NOT FORGET)
+
+### Pete = Spark (@Spark_coded)
+- **Spark is Pete's AI persona/project**
+- Going open source: 22 February 2026 (tomorrow)
+- Self-evolving intelligence
+- Twitter: https://x.com/Spark_coded
+- **Architecture:** Spark is an AI agent layer that plugs into OpenClaw
+- **Relationship to MIND:** Spark (via OpenClaw) can enhance MIND — provides the intelligent agent that searches notes, answers questions, brainstorms, learns from MIND data
+- **MIND's role:** Storage substrate + interface for the human-Spark interaction
+- **OpenClaw role:** Orchestration layer that connects Spark to MIND
+
 ## Current Project Context (Auto-Loaded)
 
 ### MIND App (19-02-2026)
